@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Prediction Form</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            text-align: right;
+            padding-right: 10px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+        }
+        textarea {
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sales Prediction Form</h1>
+    <form action="/predict" method="post">
+        <label for="date_key">Date Key (YYYYMMDD):</label>
+        <input type="text" id="date_key" name="DateKey" required>
+        
+        <label for="store_count">Store Count:</label>
+        <input type="number" id="store_count" name="StoreCount" required>
+        
+        <label for="shelf_capacity">Shelf Capacity:</label>
+        <input type="number" id="shelf_capacity" name="ShelfCapacity" step="any" required>
+        
+        <label for="promo_shelf_capacity">Promo Shelf Capacity:</label>
+        <input type="number" id="promo_shelf_capacity" name="PromoShelfCapacity" step="any" required>
+        
+        <label for="is_promo">Is Promo:</label>
+        <select id="is_promo" name="IsPromo" required>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+        
+        <label for="item_number">Item Number:</label>
+        <input type="number" id="item_number" name="ItemNumber" required>
+        
+        <label for="category_code">Category Code:</label>
+        <input type="number" id="category_code" name="CategoryCode" required>
+        
+        <label for="group_code">Group Code:</label>
+        <input type="number" id="group_code" name="GroupCode" required>
+        
+        <label for="unit_sales">Unit Sales:</label>
+        <input type="number" id="unit_sales" name="UnitSales" required>
+
+        <label for="unit_sales">Unit Sales -7:</label>
+        <input type="number" id="unit_sales_-7" name="UnitSales" required>
+
+        <label for="unit_sales">Unit Sales -14:</label>
+        <input type="number" id="unit_sales_-14" name="UnitSales" required>
+
+        <label for="unit_sales">Unit Sales -21:</label>
+        <input type="number" id="unit_sales_-21" name="UnitSales" required>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if form_data %}
+        <h2>Submitted Data:</h2>
+        <ul>
+            {% for key, value in form_data.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if form_data %}
+        <h2>Prediction:</h2>
+        <ul>
+            {{prediction}}
+        </ul>
+    {% endif %}
+</body>
+</html>
